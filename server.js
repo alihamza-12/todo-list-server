@@ -1,12 +1,17 @@
-const jsonServer = require("json-server");
-const server = jsonServer.create();
-const router = jsonServer.router("db.json");
-const middlewares = jsonServer.defaults();
+import { createApp } from "json-server/lib/app.js";
+import { Low } from "lowdb";
+import { JSONFile } from "lowdb/node";
+import { Observer } from "json-server/lib/observer.js";
+
+const adapter = new JSONFile("db.json");
+const observer = new Observer(adapter);
+const db = new Low(observer, {});
+await db.read();
+
+const app = createApp(db);
 
 const port = process.env.PORT || 3000;
 
-server.use(middlewares);
-server.use(router);
-server.listen(port, () => {
+app.listen(port, () => {
   console.log("JSON Server is running on port " + port);
 });
