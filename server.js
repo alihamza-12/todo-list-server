@@ -8,7 +8,7 @@ const observer = new Observer(adapter);
 const db = new Low(observer, {});
 await db.read();
 
-const app = createApp(db);
+const app = createApp(db, { static: [] });
 
 const port = process.env.PORT || 3000;
 
