@@ -12,9 +12,4 @@ server.get("/", (req, res) => {
 
 server.use(router);
 
-const port = process.env.PORT || 3000;
-
-// ✅ Must bind 0.0.0.0
-server.listen(port, "0.0.0.0", () => {
-  console.log("✅ JSON Server is running on port " + port);
-});
+module.exports = server;
